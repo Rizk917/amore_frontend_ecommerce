@@ -8,7 +8,13 @@ img {
   max-width: 88%;
   margin: 0 auto;
 }
-
+.center-h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+}
 .background {
   background-color:#d0d0d0;
   /* background-color: rgb(247 ,244 ,172); */

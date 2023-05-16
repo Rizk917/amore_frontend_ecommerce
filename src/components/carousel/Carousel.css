@@ -1,0 +1,17 @@
+.slick-slider img {
+  padding: 0;
+  height: 60vh;
+}
+.slick-next {
+  right: 2%;
+}
+.slick-prev {
+  left: 2%;
+}
+.slick-dots {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  position: unset;
+}
