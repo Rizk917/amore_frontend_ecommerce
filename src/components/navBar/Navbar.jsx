@@ -1,7 +1,7 @@
 import "./navbar.css";
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
-import logo from "../../Assets/logo.png";
+import logo from "../../Assets/Untitled-12.png";
 import cartLogo from "../../Assets/cartIcon.png";
 import cartLogoWhite from "../../Assets/cartIconWhite.png";
 import { Link } from "react-router-dom";
@@ -68,7 +68,7 @@ function Navbar({ onButtonClick }) {
       <a href="/" className="logo">
         <span>
           {" "}
-          <img src={logo} alt="wlogo" className="header-logo" />
+          <img src={logo} alt="logo" className="header-logo" />
         </span>
       </a>
       <ul className={menu}>

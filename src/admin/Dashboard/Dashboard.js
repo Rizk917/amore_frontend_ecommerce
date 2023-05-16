@@ -63,7 +63,7 @@ useEffect(() => {
     <ToastContainer/>
 
       <div className="container">
-      <h1 className="admin-home-h">Welcome To BaCo Dashboard</h1>
+      <h1 className="admin-home-h">Welcome To Amore Dashboard</h1>
           </div>
         </div>
   );

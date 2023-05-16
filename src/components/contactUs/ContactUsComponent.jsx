@@ -74,19 +74,19 @@ const ContactUsComponent = (props) => {
           <div class="address details">
         <FontAwesomeIcon icon={faMapMarkerAlt} />
             <div class="topic">Address</div>
-            <div class="text-one">Maasser El Chouf</div>
+            <div class="text-one">Zkak el Blat</div>
             <div class="text-two"></div>
           </div>
           <div class="phone details">
           <FontAwesomeIcon icon={faPhoneAlt} />
             <div class="topic">Phone</div>
-            <div class="text-one">+961 76 482 098</div>
+            <div class="text-one">+961 81 000 000</div>
             <div class="text-two"></div>
           </div>
           <div class="email details">
           <FontAwesomeIcon icon={faEnvelope} />
             <div class="topic">Email</div>
-            <div class="text-one">baco-lb@hotmail.com</div>
+            <div class="text-one">Amore@hotmail.com</div>
             <div class="text-two"></div>
           </div>
         </div>

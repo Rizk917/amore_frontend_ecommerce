@@ -89,7 +89,8 @@
 }
 
 .logo img {
-  width: 105px;
+  margin-left: 20%;
+  width: 190px;
   cursor: pointer;
   height: 90px;
 }
