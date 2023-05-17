@@ -26,7 +26,7 @@ export function CartProvider({ children }) {
     fetchData();
   }, []);
 
-  const handleAddProduct = (userId, productId, productName, quantity, price,) => {
+  const handleAddProduct = (userId, productId, productName, quantity, FinalPrice,) => {
     let cartData = secureLocalStorage.getItem('cart');
     let cart = cartData ? JSON.parse(cartData) : { userId: "", products: [] };
     if (!cart.userId) {
@@ -36,8 +36,8 @@ export function CartProvider({ children }) {
           productId: productId,
           productName: productName,
           quantity: quantity,
-          price: Number(price),
-          total: quantity * price
+          price: Number(FinalPrice),
+          total: quantity * FinalPrice
         }]
       };
     } else {
@@ -45,7 +45,7 @@ export function CartProvider({ children }) {
       const updatedProducts = cart.products.map(product => {
         if (product.productId === productId) {
           product.quantity += quantity;
-          product.total = product.quantity * price;
+          product.total = product.quantity * FinalPrice;
           productExists = true;
         }
         return product;
@@ -61,8 +61,8 @@ export function CartProvider({ children }) {
               productId: productId,
               productName: productName,
               quantity: quantity,
-              price: Number(price),
-              total: quantity * price
+              price: Number(FinalPrice),
+              total: quantity * FinalPrice
             }
           ]
         };

@@ -10,11 +10,6 @@ export default function Order() {
   const { UserId, data,fetchData } = useContext(CartContext);
   const{ cart, setCart } =useContext(CartContext)
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (window.location.pathname === '/order') {
-  //     fetchData();
-  //   }
-  // }, [window.location.pathname]);
 
   useEffect(() => {
     fetchData();

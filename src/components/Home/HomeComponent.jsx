@@ -30,6 +30,7 @@ function HomeComponent() {
       <div className="container-home">
 
       <h1 className="center-h1">Our latest Products</h1>
+      
       <div className="row">
         
       </div>

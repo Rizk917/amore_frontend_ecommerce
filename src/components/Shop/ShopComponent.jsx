@@ -3,7 +3,7 @@
   import axios from "axios";
   import CartContext from "../Cart/CartContext";
   import  secureLocalStorage  from  "react-secure-storage";
-
+import CardComp from "../card/Cardcomp";
 
 
 
@@ -115,25 +115,12 @@
   <div className="product_search">
       {products.map((product, key) => {
         return (
-          <div className="card" key={key}>
-            <img className="img_card" src={product.productImage} alt="chocolate" />
-            <div className="product_name">
-              <h2>{product.productName}</h2>
-            </div>
-            <div className="details_product">
-              <div className="product_price">
-                <h2>{product.productPrice} $</h2>
-              </div>
-              <div className="button_card">
-                <button type="button" onClick={() => handleAddProduct(UserId, product._id, product.productName, 1, product.productPrice)}>
-                  <p>Add to cart</p>
-                </button>
-              </div>
-            </div>
-          </div>
-        );
-      })
-  }
+          <CardComp productName={product.productName} FinalPrice={product.FinalPrice} productImage={product.productImage} _id={product._id} />
+
+        // <CardComp productName={product.productName} FinalPrice={product.FinalPrice} productImage={product.productImage} productID= {product._id} / >
+        )
+      })}
+  
   </div>
           </div>
           </div>
