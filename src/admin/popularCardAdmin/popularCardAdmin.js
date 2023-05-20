@@ -167,6 +167,7 @@ const showPopular=() =>{
                   name="productId"
                   onChange={handleChange}
                 >
+                   <option className="option" value="" disabled selected>Select a product</option>
                   {categories.map((productIDlist, key) => (
                     <option className="option" key={key} value={productIDlist._id}>
                     

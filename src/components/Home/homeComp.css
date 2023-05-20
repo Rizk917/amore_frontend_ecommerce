@@ -13,6 +13,10 @@ img {
   justify-content: center;
   align-items: center;
   font-size: 2.5rem;
+  background-image: url("./v878-mind-49-ai.svg");
+  background-repeat: no-repeat;
+  /* background-size: contain; */
+  background-position: center;
   font-weight: 600;
 }
 .background {
@@ -20,6 +24,26 @@ img {
   /* background-color: rgb(247 ,244 ,172); */
 
   /* background-color: #FFCC3F; */
+}
+.red_text{
+  color: #eb5455;
+  font-size: 65px;
+  margin-bottom: 20vh !important;
+  margin-top: 20vh !important;
+}
+
+.pCenter {
+  width: 100%; 
+  text-align: center; 
+  border-bottom: 2px solid rgb(235,84,85); 
+  line-height: 0.1em;
+  margin: 10px 0 20px; 
+} 
+
+.p_span { 
+   background:#fff; 
+   padding:0 10px;
+   color: #eb5455;
 }
 
 .banner {
