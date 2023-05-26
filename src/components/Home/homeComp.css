@@ -25,17 +25,17 @@ img {
 
   /* background-color: #FFCC3F; */
 }
-.red_text{
-  color: #eb5455;
+.yellowish_text{
+  color: #f6c270;
   font-size: 65px;
-  margin-bottom: 20vh !important;
-  margin-top: 20vh !important;
+  margin-bottom: 10vh !important;
+  margin-top: 10vh !important;
 }
 
 .pCenter {
   width: 100%; 
   text-align: center; 
-  border-bottom: 2px solid rgb(235,84,85); 
+  border-bottom: 2px solid #f6c270; 
   line-height: 0.1em;
   margin: 10px 0 20px; 
 } 
@@ -43,7 +43,7 @@ img {
 .p_span { 
    background:#fff; 
    padding:0 10px;
-   color: #eb5455;
+   color: #f6c270;
 }
 
 .banner {
@@ -225,4 +225,56 @@ img {
 }
 .fixing {
   gap: 2%;
+}
+/* CSS code for responsive row/column layout */
+.row1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: center;
+  gap: 10px;
+}
+
+.column1 {
+  flex-basis: 100%;
+  max-width: 100%;
+
+  @media screen and (min-width: 768px) {
+    flex-basis: calc(33.33% - 10px);
+    max-width: calc(33.33% - 10px);
+  }
+}
+
+/* CSS code to make images round */
+.column1 img {
+  border-radius: 50%;
+  width: 60%;
+  height: auto;
+  object-fit: cover;
+}
+
+.imgs-cat img{
+  border-radius: 50%;
+  width: 200px;
+    margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.cntr-cat{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  max-width: 800px;
+  flex-wrap: wrap;
+}
+.cntr-cat-all{
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 500px) {
+  .cntr-cat img {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }

@@ -10,19 +10,43 @@ import { Link } from "react-router-dom";
 
 function HomeComponent() {
   const [popular, setPopular] = useState([]);
+  const [slides, setSlides] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:5000/popular")
-      .then((response) => {
-        setPopular(response.data);
+    getPopular();
+    getBanners();
+    // axios
+    //   .get("http://127.0.0.1:5000/popular")
+    //   .then((response) => {
+    //     setPopular(response.data);
 
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }, []);
-  const slides = [
+
+
+  const getPopular =()=>{
+    axios.get('http://127.0.0.1:5000/popular')
+    .then((response)=>{
+      setPopular(response.data)
+    })
+    .catch((error)=>{
+      console.log(error);
+  });
+  }
+
+  const getBanners =()=>{
+    axios.get('http://127.0.0.1:5000/imageCarousel')
+    .then((response)=>{
+      setSlides(response.data.data)
+    })
+    .catch((error)=>{
+      console.log(error);
+  });
+  }
+  const categ = [
     {
       id: 1,
       image: "https://via.placeholder.com/500x500",
@@ -35,25 +59,49 @@ function HomeComponent() {
       id: 3,
       image: "https://via.placeholder.com/500x500",
     },
+    {
+      id: 4,
+      image: "https://via.placeholder.com/500x500",
+    },
+    {
+    id: 5,
+    image: "https://via.placeholder.com/500x500",
+  },
   ];
   return (
     <div className="homepage">
       <div className="home-content">
-        <div className="container-home">
+       <div>
+        {/* <div className="container-home"> */}
       <Carousel slides={slides} />
       </div>
       <div className="container-home">
 
-      <p className="red_text pCenter">
+      <p className="yellowish_text pCenter">
               <Link to="/shop">
-                <span className="p_span">Our Products</span>
+                <span className="p_span">Categories</span>
+              </Link>
+              
+            </p>
+            <div className="cntr-cat-all">
+            <div className="cntr-cat">
+  {categ.map((catego, key) => (
+    <div className="imgs-cat" key={key}>
+      <img src={catego.image} alt="" />
+    </div>
+  ))}
+</div>
+</div>
+            <p className="yellowish_text pCenter">
+              <Link to="/shop">
+                <span className="p_span">Popular</span>
               </Link>
             </p>
       
-      <div className="row">
+      <div className="listing fixing">
       {popular.map((populars, key) => {
         return (
-          <CardComp productName={populars.productId.productName} FinalPrice={populars.productId.FinalPrice} productImage={populars.productId.productImage} _id={populars.productId._id} />
+          <CardComp productName={populars.productId.productName} productPrice={populars.productId.productPrice} FinalPrice={populars.productId.FinalPrice} productImage={populars.productId.productImage} _id={populars.productId._id} />
 
         )
       })}

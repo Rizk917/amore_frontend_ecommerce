@@ -115,19 +115,7 @@ function ImageCarousleAdmin() {
 
             <tbody className="table_tbody">
               {images
-                .filter((imagesList) => {
-                  if (!searchTerm) {
-                    return imagesList;
-                  } else if (
-                    imagesList.altText
-                      .toLowerCase()
-                      .includes(searchTerm.toLowerCase())
-                  ) {
-                    return imagesList;
-                  } else {
-                    return null;
-                  }
-                })
+                
                 .map((imagesList, key) => {
                   return (
                     <tr className="table_tr" key={key}>

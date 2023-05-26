@@ -10,112 +10,19 @@ const About = () => {
   return (
     <>  
     <div className="page-start">
-    <Fragment>
-      <section className="about">
-        <div className="row">
-          <div className="column">
-            <div className="about-img"></div>
-          </div>
-          <div className="column">
-            <div className="tabs">
-              <div 
-                className={ toggleTab === 1 ? "single-tab active-tab" : "single-tab" }
-                onClick={() => toggleState(1)}
-              >
-                
-                <h2>Our Story</h2>
-              </div>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans:700|Droid+Serif' rel='stylesheet' type='text/css' />
 
-              <div className={toggleTab === 2 ? "single-tab active-tab" : "single-tab"}
-                onClick={() => toggleState(2)}>
-                <h2>How It All Started</h2>
-              </div>
+<div id="banner">
 
-              <div className={toggleTab === 3 ? "single-tab active-tab" : "single-tab"}
-                onClick={() => toggleState(3)}>
-                <h2>Our Mission</h2>
-              </div>
-            </div>
-            <div className="tab-content">
-              <div className={toggleTab === 1 ? "content active-content" :"content"}>
-                <h2>Our Story</h2>
-                <p className="story-p">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptatibus neque sapiente explicabo? Molestiae,
-                  exercitationem. Quasi neque reprehenderit adipisci nemo amet
-                  deleniti modi impedit ab sit recusandae, reiciendis placeat,
-                  ipsam dolore?
-                </p>
+</div>
+<div className="center-abt-us">
 
-                <h3>Our Objective</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Excepturi nulla nemo dolorum illo consequatur numquam nihil
-                  blanditiis quos id vel, rem voluptatibus exercitationem
-                  sapiente, vero, voluptatum placeat itaque iste expedita.
-                </p>
-              </div>
-              
-               {/* How it started Content */}
-               <div className={toggleTab === 2 ? "content active-content" :"content"}>
-                <div className="exp-column">
-                  <h2>How It All Started</h2>
-                  <h3>Lorem.</h3>
-                  <span>2014-2016</span>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Perspiciatis, atque?
-                  </p>
-                </div>
-
-                <div className="exp-column">
-                  <h3>Lorem, ipsum.</h3>
-                  <span>2016-2018</span>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Perspiciatis, atque?
-                  </p>
-                </div>
-
-                <div className="exp-column">
-                  <h3>Lorem, ipsum dolor.</h3>
-                  <span>2018-2023</span>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Perspiciatis, atque?
-                  </p>
-                </div>
-              </div>
-
-              {/* Mission */}
-              <div className={toggleTab === 3 ? "content active-content" :"content"}>
-                <h2>Our Mission</h2>
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptatibus neque sapiente explicabo? Molestiae,
-                  exercitationem. Quasi neque reprehenderit adipisci nemo amet
-                  deleniti modi impedit ab sit recusandae, reiciendis placeat,
-                  ipsam dolore?
-                </p>
-
-                <div className="skills-row">
-               
-                
-
-                  
-
-                
-                </div>
-              </div>
-
-             
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </Fragment>
-    <Footer/>
+<div id="content">
+  <h2>About us</h2>
+  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin pellentesque, est ut venenatis aliquam, lorem quam porttitor ligula, eget ultrices velit dui sed quam. Praesent vehicula placerat lectus. Nulla pede. Quisque a nulla quis massa pulvinar sagittis. Pellentesque neque massa, mattis vulputate, pellentesque nec, vehicula volutpat, purus. Proin pretium dui et nulla cursus eleifend. Aenean aliquam urna eget urna. Vestibulum euismod elit. Donec eget augue sit amet neque elementum pretium. Proin posuere lacus id lacus. Duis vel justo suscipit neque ornare iaculis.</p>
+  <p>Ut urna urna, rhoncus eget, vestibulum tempus, venenatis non, nunc. Nunc consequat quam in nulla. Praesent feugiat posuere orci. Sed ac ante. Mauris pellentesque massa vitae ante mattis bibendum. Quisque dapibus lectus eu eros. Nulla facilisi. Praesent hendrerit egestas erat. Suspendisse at velit. Quisque mollis feugiat est. Curabitur ut leo. Cras auctor semper augue. Pellentesque leo pede, tempus sed, ornare in, venenatis sed, nisl. Quisque est velit, eleifend vitae, mollis ac, adipiscing at, eros. Mauris velit. Etiam nec lorem. Vestibulum pellentesque ligula a velit. Maecenas felis metus, suscipit et, eleifend vel, accumsan vitae, magna. Phasellus ut justo vel magna congue laoreet.</p>
+</div>
+</div>
     </div>
    </>
 

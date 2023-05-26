@@ -112,10 +112,10 @@ import CardComp from "../card/Cardcomp";
           
           
 
-  <div className="product_search">
+  <div className="product_search ">
       {products.map((product, key) => {
         return (
-          <CardComp productName={product.productName} FinalPrice={product.FinalPrice} productImage={product.productImage} _id={product._id} />
+          <CardComp productName={product.productName} productPrice={product.productPrice} FinalPrice={product.FinalPrice} productImage={product.productImage} _id={product._id} />
 
         // <CardComp productName={product.productName} FinalPrice={product.FinalPrice} productImage={product.productImage} productID= {product._id} / >
         )

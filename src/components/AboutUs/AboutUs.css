@@ -18,7 +18,7 @@
   background: white;
   margin-right: 10px;
   cursor: pointer;
-  border: 1px solid #ffbb00;
+  border: 1px solid #f6c270;
 }
 
 .single-tab h2 {
@@ -221,4 +221,38 @@
   justify-content: center;
   align-items: flex-end;
   font-weight: bold;
+}
+
+
+#banner {
+  background: url(https://i.ibb.co/3SNpSdc/IMG-1489.jpg) no-repeat fixed 100%
+    100%;
+  background-size: cover;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+}
+
+#bannertext {
+  width: 20em;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  border: 0.5em solid #fff;
+  margin-left: -12em;
+  padding: 2em 0;
+}
+
+#content {
+  max-width: 28em;
+  text-align: justify;
+  margin: 0 auto;
+  padding: 2em;
+}
+
+#content p {
+  margin: 0 0 2em;
+}
+.center-abt-us{
+  display: flex;
 }
