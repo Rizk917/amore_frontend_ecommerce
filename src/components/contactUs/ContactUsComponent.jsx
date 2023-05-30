@@ -66,7 +66,7 @@ const ContactUsComponent = (props) => {
   return (
     <>
     <div className="contact-Us">
-      <h1>Contact Us</h1>
+      <h1 className="yellowish_text pCenter"><span className="p_span">Contact Us</span></h1>
     <div className="container-home">
     <div class="cntctus">
       <div class="content">

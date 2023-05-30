@@ -1,9 +1,9 @@
-.productCardNew {
+/* .productCardNew {
     position: relative;
-    width: calc(100% - 20px); /* Adjusted width for smaller display */
+    width: calc(100% - 20px); 
     max-width: 240px;
   }
-/*  */
+
   .listing {
     list-style: none;
     margin: 0;
@@ -32,8 +32,8 @@
   }
   
   .img-wrapper img {
-    max-width: 100%; /* Adjusted max-width for responsive image */
-    height: auto; /* Adjusted height to maintain aspect ratio */
+    max-width: 100%; 
+    height: auto; 
   }
   
   .info {
@@ -227,4 +227,115 @@
   .fixing {
     gap: 2%;
   }
-  
+   */
+
+.product-card {
+    /* width: 380px; */
+    position: relative;
+    box-shadow: 0 2px 7px #dfdfdf;
+    /* margin: 50px auto; */
+    background: #fafafa;
+}
+
+.badge {
+    position: absolute;
+    left: 0;
+    top: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    background: red;
+    color: #fff;
+    padding: 3px 10px;
+}
+
+.product-tumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    /* padding: 50px; */
+    background: #f0f0f0;
+}
+
+.product-tumb img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.product-details {
+    padding: 30px;
+}
+
+.product-catagory {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ccc;
+    margin-bottom: 18px;
+}
+
+.product-details h4  {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    color: #363636;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.product-details h4  :hover {
+    color: #f6c270;
+}
+
+.product-details p {
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 18px;
+    color: #999;
+}
+
+.product-bottom-details {
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.product-bottom-details div {
+    float: left;
+    width: 50%;
+}
+
+.product-price {
+    font-size: 18px;
+    color: #5583a6;
+    font-weight: 600;
+}
+
+.product-price small {
+    font-size: 80%;
+    font-weight: 400;
+    text-decoration-line: line-through;
+    text-decoration-color: red;
+    text-decoration-style: wavy;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.product-links {
+    text-align: right;
+}
+
+.product-links button i {
+    display: inline-block;
+    margin-left: 5px;
+    color: #e1e1e1;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.product-links button i:hover {
+    color: #f6c270;
+}

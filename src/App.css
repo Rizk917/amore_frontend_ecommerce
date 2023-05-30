@@ -192,7 +192,7 @@
 .main-wrap{
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 6vh auto;
+  grid-template-rows: 10vh auto;
 }
 
 .page-start{

@@ -253,11 +253,13 @@ img {
   object-fit: cover;
 }
 
-.imgs-cat img{
+.imgs-cat img {
   border-radius: 50%;
   width: 200px;
-    margin-right: 10px;
+  height: 200px;
+  margin-right: 10px;
   margin-bottom: 10px;
+  border: 4px solid #5583a6;
 }
 
 .cntr-cat{

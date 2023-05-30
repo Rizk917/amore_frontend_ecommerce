@@ -7,7 +7,11 @@ import CartContext from "../Cart/CartContext";
 import Carousel from "../carousel/Carousel";
 import CardComp from "../card/Cardcomp";
 import { Link } from "react-router-dom";
-
+import image1 from '../../images/100050984_266989381378337_5939627848368128000_n.jpg'
+import image2 from '../../images/5332caad6fb67b75eee6c8355995babe53246304.jpg'
+import image3 from '../../images/DSC_0891.jpg'
+import image4 from '../../images/formil-laundry-600x450.jpeg.webp'
+import image5 from '../../images/c8e13415279f285509af3ac5c6536c44c8611c37.jpg'
 function HomeComponent() {
   const [popular, setPopular] = useState([]);
   const [slides, setSlides] = useState([]);
@@ -49,23 +53,23 @@ function HomeComponent() {
   const categ = [
     {
       id: 1,
-      image: "https://via.placeholder.com/500x500",
+      image:image1 ,
     },
     {
       id: 2,
-      image: "https://via.placeholder.com/500x500",
+      image: image2,
     },
     {
       id: 3,
-      image: "https://via.placeholder.com/500x500",
+      image: image3,
     },
     {
       id: 4,
-      image: "https://via.placeholder.com/500x500",
+      image: image4,
     },
     {
     id: 5,
-    image: "https://via.placeholder.com/500x500",
+    image: image5,
   },
   ];
   return (
@@ -101,7 +105,7 @@ function HomeComponent() {
       <div className="listing fixing">
       {popular.map((populars, key) => {
         return (
-          <CardComp productName={populars.productId.productName} productPrice={populars.productId.productPrice} FinalPrice={populars.productId.FinalPrice} productImage={populars.productId.productImage} _id={populars.productId._id} />
+          <CardComp productName={populars.productId.productName} productPrice={populars.productId.productPrice} FinalPrice={populars.productId.FinalPrice} productImage={populars.productId.productImage} productDescription={populars.productId.productDescription} _id={populars.productId._id} />
 
         )
       })}

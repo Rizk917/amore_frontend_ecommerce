@@ -1,32 +1,61 @@
 import React, { Fragment, useState } from "react";
 import "./AboutUs.css";
+import logo from "../../Assets/Untitled-12.png"
+
 import Footer from "../footer/Footer";
 
 const About = () => {
   const [toggleTab, setToggleTab] = useState(1);
   const toggleState = (index) => {
     setToggleTab(index);
-  }
+  };
   return (
-    <>  
-    <div className="page-start">
-    <link href='https://fonts.googleapis.com/css?family=Droid+Sans:700|Droid+Serif' rel='stylesheet' type='text/css' />
+    <>
+      <div className="aboutus-wrapper">
+        <div className="aboutus-container">
+          <div className="text-container">
+            <h1 className="title-aboutus">About us</h1>
 
-<div id="banner">
+            <em className="em-aboutus">
+              –Welcome to our website!–
+            </em>
 
-</div>
-<div className="center-abt-us">
+            <p className="text-aboutus2">
+              There are many variations of passages of Lorem Ipsum available,
+              but the majority have suffered alteration in some form, by
+              injected humour, or randomised words which don't look even
+              slightly believable. If you are going to use a passage of Lorem
+              Ipsum, you need to be sure there isn't anything embarrassing
+              hidden in the middle of text. All the Lorem Ipsum generators on
+              the Internet tend to repeat predefined chunks as necessary, making
+              this the first true generator on the Internet. It uses a
+              dictionary of over 200 Latin words, combined with a handful of
+              model sentence structures, to generate Lorem Ipsum which looks
+              reasonable. The generated Lorem Ipsum is therefore always free
+              from repetition, injected humour, or non-characteristic words etc.
+            </p>
 
-<div id="content">
-  <h2>About us</h2>
-  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin pellentesque, est ut venenatis aliquam, lorem quam porttitor ligula, eget ultrices velit dui sed quam. Praesent vehicula placerat lectus. Nulla pede. Quisque a nulla quis massa pulvinar sagittis. Pellentesque neque massa, mattis vulputate, pellentesque nec, vehicula volutpat, purus. Proin pretium dui et nulla cursus eleifend. Aenean aliquam urna eget urna. Vestibulum euismod elit. Donec eget augue sit amet neque elementum pretium. Proin posuere lacus id lacus. Duis vel justo suscipit neque ornare iaculis.</p>
-  <p>Ut urna urna, rhoncus eget, vestibulum tempus, venenatis non, nunc. Nunc consequat quam in nulla. Praesent feugiat posuere orci. Sed ac ante. Mauris pellentesque massa vitae ante mattis bibendum. Quisque dapibus lectus eu eros. Nulla facilisi. Praesent hendrerit egestas erat. Suspendisse at velit. Quisque mollis feugiat est. Curabitur ut leo. Cras auctor semper augue. Pellentesque leo pede, tempus sed, ornare in, venenatis sed, nisl. Quisque est velit, eleifend vitae, mollis ac, adipiscing at, eros. Mauris velit. Etiam nec lorem. Vestibulum pellentesque ligula a velit. Maecenas felis metus, suscipit et, eleifend vel, accumsan vitae, magna. Phasellus ut justo vel magna congue laoreet.</p>
-</div>
-</div>
-    </div>
-   </>
+            {/* <p className="text-aboutus3">
+              But more than just a flower shop, Fleur de vie is a community of
+              people who share a love for beauty, creativity, and connection. We
+              believe in the power of flowers to bring people together, to
+              brighten up someone's day, and to create memories that last a
+              lifetime. And we're dedicated to making your experience with us as
+              special and memorable as the flowers themselves.
+            </p> */}
 
-    );
+            {/* <p className="text-aboutus4">
+              Thank you for choosing Fleur de vie. We look forward to bringing a
+              little bit of beauty and joy into your life.
+            </p> */}
+          </div>
+          <div className="image-container">
+            <img src={logo} alt="logo" className="aboutus-image" />
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default About;

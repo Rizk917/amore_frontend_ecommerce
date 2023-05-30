@@ -5,136 +5,100 @@ import editImage from '../image/edit.png'
 import deleteImage from '../image/delete.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-function CategoriesAdmin() {
-  const [categories, setCategories] = useState([]);
+function ImageCarousleAdmin() {
+  const [images, setImages] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [uploadedImage, setUploadedImage] = useState({
+    categoryName: "",
+    image: "",
+  });
+  const [showProduct, setShowProduct] = useState(false);
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
 
-  // get categories using axios
+  // get images using axios
   useEffect(() => {
     axios
       .get("http://127.0.0.1:5000/categories")
       .then((response) => {
-        setCategories(response.data.data);
+        setImages(response.data.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [categories]);
+  }, []);
 
-  // add category
-  const [addCategory, setAddCategory] = useState({
-    categoryName: "",
-  });
-  const handleChangeCategory = async (event) => {
-    event.preventDefault();
-    const fieldName = event.target.getAttribute("name");
-    let fieldValue = event.target.value;
-    const newFormData = { ...addCategory };
-    newFormData[fieldName] = fieldValue;
 
-    setAddCategory(newFormData);
-  };
-
-  const handleSubmitCategory = (event) => {
-    event.preventDefault();
-
-    const data = {
-      categoryName: addCategory.categoryName,
-    };
-
-    const config = {
-      headers: { "content-type": "application/json" },
-    };
-    axios
-      .post(`http://127.0.0.1:5000/categories`, data, config)
-      .then((response) => {
-        setCategories([...categories, response.data]);
-        // window.alert("category created successfully!");
-        
-        toast.success(' category created successfully!', {
-          position: toast.POSITION.TOP_RIGHT
-      });
-      })
-      .catch((error) => {
-        toast.error('Error!', {
-          position: toast.POSITION.TOP_RIGHT
-      });
-        console.log(error.response.data);
-      });
-    handleShowCategory();
-  };
-
-  // Function for deleting  a product
-
-  const handleDeleteCategory = async (id) => {
+  // handle product deletion
+  const handleDeleteProduct = async (id) => {
     const url = `http://127.0.0.1:5000/categories/${id}`;
-    
     try {
-      const confirmDelete = window.confirm("Are you sure you want to delete this category?");
-      if(confirmDelete){
       await axios.delete(url);
-      // setCategories(categories.filter(category => category._id !== id));
-      // console.log("Product deleted successfully!");
-      toast.success(' Deleted successfully!', {
+      setImages(images.filter((product) => product._id !== id));
+      // console.log("image deleted successfully!");
+      toast.success(' Image deleted successfully!', {
         position: toast.POSITION.TOP_RIGHT
     });
-    } }
-    catch (error) {
+    } catch (error) {
       toast.error('Error!', {
         position: toast.POSITION.TOP_RIGHT
     });
       console.log(error);
     }
   };
-  //update category
-  const handleUpdateCategory = (event) => {
-    event.preventDefault();
 
-    const updateCategory = {
-      categoryName: event.target.categoryName.value,
-    };
-    axios
-      .put(
-        `http://127.0.0.1:5000/categories/${currentCategory._id}`,
-        updateCategory
-      )
-      .then(() => {
-        // console.log("product updated successfully");
-        // window.alert("category updated successfully!");
-        toast.success(' category updated successfully!', {
-          position: toast.POSITION.TOP_RIGHT
-      });
-
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    handleShowUpdateCategory();
+  // toggle show product form
+  const handleShowProduct = () => {
+    setShowProduct(!showProduct);
   };
 
-  const [currentCategory, setCurrentCategory] = useState(null);
-  const [showCategory, setShowCategory] = useState(false);
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  // handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("categoryName", uploadedImage.categoryName);
+    formData.append("image", uploadedImage.image);
+    try {
+      const res = await axios.post("http://127.0.0.1:5000/categories", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setImages([...images, res.data.data]);
+      setShowProduct(false);
+      setUploadedImage({ categoryName: "", image: "" });
+      // console.log("Image added successfully!");
+      toast.success(' Image added successfully!', {
+        position: toast.POSITION.TOP_RIGHT
+    });
+    } catch (error) {
+    <ToastContainer/>
 
-  const handleShowCategory = () => {
-    setShowCategory(!showCategory);
+      console.log(error);
+    }
   };
 
-  const handleShowUpdateCategory = () => {
-    setShowUpdateForm(!showUpdateForm);
+  // handle input change
+  const handleChange = (e) => {
+    setUploadedImage({ ...uploadedImage, [e.target.name]: e.target.value });
+  };
+
+  // handle image change
+  const handleImageChange = (e) => {
+    setUploadedImage({ ...uploadedImage, image: e.target.files[0] });
   };
 
   return (
     <div className="container">
-      <ToastContainer/>
+    <ToastContainer/>
+
       <div className="page_name">
-      <h1 className="title_page_dashboard">Categories</h1>
+        <h1 className="title_page_dashboard">Categories</h1>
       </div>
       <div className="table_container">
         <div className="search_table">
           <div className="search">
             <input
-              placeholder="Search By Category Name"
+              placeholder="Search By Product Name"
               onChange={(event) => {
                 setSearchTerm(event.target.value);
               }}
@@ -143,53 +107,26 @@ function CategoriesAdmin() {
           <table className="table">
             <thead className="head_table">
               <tr className="table_head_tr">
-                <th>Category Name</th>
-                <th>Update</th>
+                <th>Categories</th>
+                <th>Images</th>
                 <th>Delete</th>
               </tr>
             </thead>
 
             <tbody className="table_tbody">
-              {categories
-                .filter((category) => {
-                  if (!searchTerm) {
-                    return category;
-                  } else if (
-                    category.categoryName
-                      .toLowerCase()
-                      .includes(searchTerm.toLowerCase())
-                  ) {
-                    return category;
-                  } else {
-                    return null;
-                  }
-                })
-                .map((category, key) => {
+              {images
+                
+                .map((imagesList, key) => {
                   return (
                     <tr className="table_tr" key={key}>
-                      <td className="table_td">{category.categoryName}</td>
+                      <td className="table_td">{imagesList.categoryName}</td>
+                      <td className="table_td"><img src={imagesList.image} alt="" /></td>
                       <td className="table_td">
                         <button
-                          onClick={() => {
-                            setShowUpdateForm(!showUpdateForm);
-                            setCurrentCategory(category);
-                          }}
+                          onClick={() => handleDeleteProduct(imagesList._id)}
                         >
                           <img
-                            src={editImage}
-                            alt="edit"
-                            className="edit"
-                          />
-                        </button>
-                      </td>
-                      <td className="table_td">
-                        <button
-                          onClick={() => handleDeleteCategory(category._id)}
-                        >
-                          <img
-                            src={
-                              deleteImage
-                            }
+                            src={deleteImage}
                             alt="delete"
                             className="delete"
                           />
@@ -200,38 +137,39 @@ function CategoriesAdmin() {
                 })}
             </tbody>
           </table>
-          {showUpdateForm && currentCategory ? (
-            <div className="update_category">
-              <form className="category_form" onSubmit={handleUpdateCategory}>
-                <label className="category_label">Category Name</label>
-                <input
-                  type="text"
-                  className="category"
-                  name="categoryName"
-                  defaultValue={currentCategory.categoryName}
-                />
-                <button className="submit">Submit</button>
-              </form>
-            </div>
-          ) : null}
+       
         </div>
 
-        <div className="add_category">
-          <button className="add_category" onClick={() => handleShowCategory()}>
-            + Add category
+        <div className="add_product">
+          <button className="add_product" onClick={() => handleShowProduct()}>
+            + Add image
           </button>
-          {showCategory ? (
-            <div className="add_category_form">
-              <form className="category_form" onSubmit={handleSubmitCategory}>
-                <label className="category_label">category Name</label>
+          {showProduct ? (
+            <div className="add_product_form">
+              <form className="product_form">
+              
+                <label className="product_label">Image</label>
+                <input
+                  type="file"
+                  className="product"
+                  name="image"
+                  autoComplete="off"
+                  onChange={handleImageChange}
+                />
+                <label className="product_label">Image Name</label>
                 <input
                   type="text"
-                  className="category"
+                  className="product"
                   name="categoryName"
                   autoComplete="off"
-                  onChange={handleChangeCategory}
+                  onChange={handleChange}
                 />
-                <button className="submit">Submit</button>
+             
+      
+
+                <button className="submit" onClick={handleSubmit}>
+                  Submit
+                </button>
               </form>
             </div>
           ) : null}
@@ -240,4 +178,5 @@ function CategoriesAdmin() {
     </div>
   );
 }
-export default CategoriesAdmin;
+
+export default ImageCarousleAdmin;

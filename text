@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../includes/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="../includes/css/vuetify.min.css" />
+    <link rel="stylesheet" href="css/imgareaselect-default.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <style>
+        .v-text-field__details { display: none !important; }
+        .v-input--selection-controls { margin-top: 0px; padding-top: 0px; }
+        .v-messages { display: none;}
+    </style>
+    <script src="../includes/js/jquery.min.js"></script>
+    <script src="../includes/js/jquery.imgareaselect.js"></script>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css"  />
+    <link rel="stylesheet" href="../../assets/css/all.min.css" />
+    <link rel="stylesheet" href="./css/conf-sig-style.css" />
+    <style>
+        .v-expansion-panel-header__icon:lang(ar) {
+            margin-left: 0;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    
+    <script src="../includes/js/axios.min.js"></script>
+    <script src="../includes/js/vue.js"></script>
+    <script src="../includes/js/vuetify.js"></script>
+    
+    <div style="display: none;" id="main-app-div">
+        <v-app id="my-app123" class="overflow-lg-hidden" style="background-color: white !important; padding: 0 !important;">
+            <div class="row m-0" style="height: 100%;">
+                <div class="col-lg-4 col-xl-3 pb-0 position-relative">
+                    <div class="px-1 overflow-lg-hidden" style="height: calc(100vh - 90px); overflow-y: auto; overflow-x: hidden; margin-top: 50px;">
+                        <div>
+                            <div>
+                                <div id="signaturesList" v-if="signaturesListShow">
+                                    <h1 class="doc-title">Sick_Leave_Ahmad</h1>
+                                    <label class="title-signee">Signees</label>
+                                    <!-- Loop Start -->
+                                    <div v-for="(item, i) in signersTable" :key="i" 
+                                    style="padding-top: 3px;display:flex; justify-content: space-between; padding-bottom: 3px;" 
+                                    class="signature-child">
+                                     
+                                        <div>  
+                                            <div style="display: flex;">
+                                                <img src="https://thumbs.dreamstime.com/b/flat-male-avatar-image-beard-hairstyle-businessman-profile-icon-vector-179285629.jpg" alt="" class="signer-image">
+                                                <div>
+                                                    <div class="signee-name" style="width:100%; padding: 5px 0px;"> 
+                                                        {{ item.signerName }}
+                                                    </div>
+                                                    <div class="sig-job-title">
+                                                        --X {{ item.jobTitle }}--
+                                                    </div>
+                                                    
+                                                </div>
+
+                                             
+                                            </div>
+
+                                     
+                                        </div>
+                                        <!-- To be in Accordion Start -->
+                                        <div>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header @click="onConfigureClick(item, i+1)">
+                                                  <div ></div>
+                                                </v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    {{ResourceConfiguration}}
+                                                </v-expansion-panel-content>
+                                              </v-expansion-panel>
+                                          
+                                              
+                                            </div>
+                                            <!-- To be in Accordion End -->
+                                       
+                                          
+                                          
+                                    </div>
+                                    <!-- Loop End -->
+                                </div>
+
+                                 
+
+
+
+
+
+
+                                <!-- To be Ignored START -->
+                                <div id="configureSignature" v-if="configureSignatureShow">
+                                    <div style="text-align: center; padding: 20px">
+                                        {{ signerEditName }}
+                                        <br />
+                                        {{ signerEditJobPosition }}
+                                    </div>                                 
+                                </div>
+                                <!-- To be Ignored START -->
+
+                                <!-- To be in accordion START -->
+                                <div v-if="pnlSignConfigShow">
+                                    <div class="mx-3">
+                                        <p class="sig-label-all">{{ResourceApplyTo}}  </p>
+                                        <v-radio-group v-model="signatureConfig.applyTo">
+                                                <div class="radio-flex">
+                                                <v-radio :key="'this' + i" 		:label="ResourceThisPage" 	value="this"	class="solo-radio-btn"	></v-radio>
+                                                <v-radio :key="'all' + i" 		:label="ResourceAllPages" 	value="all"		class="solo-radio-btn"	></v-radio>
+                                                <v-radio :key="'range' + i" 	:label="ResourceRange" 		value="range" 	class="solo-radio-btn"	></v-radio>
+                                                <v-radio :key="'specify' + i" 	:label="ResourceSpecific" 	value="specific" class="solo-radio-btn"	></v-radio>
+                                            </div>
+                                        </v-radio-group>
+                                        <div v-if="signatureConfig.applyTo == 'range'" class="d-flex justify-space-between flex-wrap range_wrapper">
+                                            <div>
+                                                <p class="sig-label-all">{{ResourceFrom}} </p>
+                                                <v-text-field v-model="signatureConfig.from" type="number" number label="" solo class="number-field"></v-text-field>
+                                            </div>
+                                            <span>
+                                                <div class="dash"></div>
+                                            </span>
+                                            <div>
+                                                <p class="sig-label-all">{{ResourceTo}}</p>
+                                                <v-text-field v-model="signatureConfig.to" type="number" number label="" solo class="number-field"></v-text-field>
+                                            </div>
+                                        </div>
+                                        <div v-if="signatureConfig.applyTo == 'specific'" class="d-flex justify-space-between specific_wrapper flex-wrap">
+                                            <div>
+                                                <p class="sig-label-all">{{ResourcePagesNumber}}</p>
+                                                <v-text-field v-model="signatureConfig.specific" class="specific-num-label" number label="1,2,3,4" solo></v-text-field>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-wrap my-3 lang-align">
+                                            <div class="lang-align_child">
+                                                <p class="sig-label-all">{{ResourceLanguage}} </p>
+                                                <v-radio-group v-model="signatureConfig.language"  mandatory>
+                                                        <div class="radio-flex">
+                                                        <v-radio :key="'EN' + i"  class="solo-radio-btn"label="EN" value="EN"></v-radio>
+                                                        <v-radio :key="'AR' + i" class="solo-radio-btn" label="AR" value="AR"></v-radio>
+                                                    </div>
+                                                </v-radio-group>
+                                            </div>
+                                            <div class="lang-align_child">
+                                                <p class="sig-label-all">{{ResourceAllignment}}</p>
+                                                <v-tabs v-model="signatureConfig.alignment" class="align-wrap" no-transition >
+                                                    <v-tab>
+                                                        <v-icon :key="'left' + i" value="0" class="align-tabs" style="border-radius: 8px; width: 32px;
+                                                        height: 32px;">mdi-format-align-left</v-icon>
+                                                    </v-tab>
+                                                    <v-tab>
+                                                        <v-icon :key="'center' + i" value="1" class="align-tabs"style="border-radius: 8px; width: 32px;
+                                                        height: 32px;">mdi-format-align-center</v-icon>
+                                                    </v-tab>
+                                                    <v-tab >
+                                                        <v-icon :key="'right' + i" value="2" class="align-tabs" style="border-radius: 8px; width: 32px;
+                                                        height: 32px;">mdi-format-align-right</v-icon>
+                                                    </v-tab>
+                                                </v-tabs>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="sig-label-all">{{ResourceShow}}</div>
+                                            <div class="d-flex flex-wrap justify-start align-baseline sig-checkboxes">
+                                                <v-checkbox v-model="signatureConfig.showName" 	:key="'Name' + i" :label="ResourceName" class="checkboxes " input-value="true"></v-checkbox>
+                                                <v-checkbox v-model="signatureConfig.showJobTitle" :key="'Job' + i" :label="ResourceJobTitle" class="checkboxes"></v-checkbox>
+                                                <v-checkbox v-model="signatureConfig.showDate" 	:key="'Date' + i" :label="ResourceDate" class="checkboxes"></v-checkbox>
+                                            </div>
+                                        </div>
+                                        <v-divider></v-divider>
+
+                                        <div class="vcontent" >
+                                            <v-btn class="remove-bg-class"  @click="signatureConfigurationDone(false)">
+                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="10" cy="10" r="9" stroke="#205CDF" stroke-width="2"/>
+                                                    <path d="M10 13L10 7" stroke="#205CDF" stroke-width="2" stroke-linecap="square"/>
+                                                    <path d="M13 10L7 10" stroke="#205CDF" stroke-width="2" stroke-linecap="square"/>
+                                                    </svg>
+                                                    
+                                                {{ResourceSave}}
+                                            </v-btn>
+                                            <v-btn  class="remove-bg-class"  @click="signatureConfigurationCancel(true)">
+                                                <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10 11L6 15L10 19" stroke="#205CDF" stroke-width="2"/>
+                                                    <path d="M1.93782 11.5C1.16735 10.1655 0.858753 8.61407 1.05989 7.08632C1.26102 5.55856 1.96064 4.13986 3.05025 3.05025C4.13986 1.96064 5.55856 1.26102 7.08632 1.05989C8.61407 0.858753 10.1655 1.16735 11.5 1.93782C12.8345 2.70829 13.8775 3.89757 14.4672 5.32122C15.0568 6.74486 15.1603 8.3233 14.7615 9.81173C14.3627 11.3002 13.4838 12.6154 12.2613 13.5535C11.0388 14.4915 9.54094 15 8 15" stroke="#205CDF" stroke-width="2" stroke-linecap="round"/>
+                                                    </svg>
+                                                        {{ResourceCancel}}
+
+                                            </v-btn>
+                                            <v-btn class="remove-bg-class" @click="signatureConfigurationRemove(false)" style="display: none;">
+                                                {{ResourceRemove}}
+                                            </v-btn>
+                                        </div>
+                                        <v-divider></v-divider>
+                                    </div>
+                                </div>
+                                <!-- To be in accordion END -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-8 col-xl-9 pb-0" style="background: #e7ebef;">
+                    <!--viewer section-->
+                    <div class=" h-100 position-relative viewer-container">
+                        <!--top actions-->
+                        <div class="d-flex viewer-actions flex-wrap gap-2 mb-3">
+                            <v-btn class="btn-sm white" icon><v-icon class="custom-icon primary-hover btn-sm">mdi-grid</v-icon></v-btn>
+    
+                            <div class="white-btn-group">
+                                <v-btn icon @click="GoToPreviousPage"><v-icon>mdi-arrow-left</v-icon></v-btn>
+                                <div class="vertical-divider"></div>
+                                <v-text-field v-model="pageNumberField" @keydown.enter="ChangePage" label="" solo></v-text-field>
+                                <span style="font-size: 25px;">&nbsp;/&nbsp; {{ docPages.length }}</span>
+                                <v-btn icon @click="GoToNextPage"><v-icon>mdi-arrow-right</v-icon></v-btn>
+                            </div> 
+                        </div>
+                        <div class="h-lg-auto" style="height: calc(100vh - 65px); overflow: auto;">
+                            <div id="imgContainer" style="position: relative;">
+                                <img id="imgPage" alt="" runat="server" src="css/LoadImage.png" style="width: 100%" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </v-app>
+    </div>
+   
+    
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#my-app123',
+            vuetify: new Vuetify(),
+            data()
+            {
+                return {
+                    customApiPath: '',
+                    headers: {},
+
+                    docPages: [],
+                    signedByList: [],
+                    selelectedPageNumber: 0,
+                    pagesReady: false,
+                    imgSelector: null,
+                    currentSignatureNumber: 0,
+                    currentgctId: 0,
+                    docPagesOrignal: null,
+                    isPageIsLoaded: false,
+                    signaturesCount: 0,
+                    imgLoadingMask: null,
+                    isInConfigureMode: false,
+
+                    pageNumberField: 1,
+                    signersTable: [],
+                    signaturesListShow: true,
+                    configureSignatureShow: false,
+                    pnlSignConfigShow: false,
+                    signerEditName: '',
+                    signerEditJobPosition: '',
+                    signatureConfig: {
+                        applyTo: 'this',
+                        from: '',
+                        to: '',
+                        specific: '',
+                        language: 'EN',
+                        alignment: '0',
+                        showName: true,
+                        showJobTitle: true,
+                        showDate: true,
+                        showStamp: false
+                    },
+                    documentId: 0,
+                    attachmentId: 0,
+                    ARTranslation: {
+                        ResourceConfiguration:'Configuration',
+                        ResourceSave:'Save',
+                        ResourceCancel:'Cancel',
+                        ResourceRemove:'Remove',
+                        ResourceThisPage:'This Page',
+                        ResourceAllPages:'All Pages',
+                        ResourceRange:'Range',
+                        ResourceSpecific:'Specific',
+                        ResourceApplyTo:'Apply To',
+                        ResourceLanguage:'ARLanguage',
+                        ResourcePagesNumber:"Pages Number",
+                        ResourceFrom:"From",
+                        ResourceTo:"To",
+                        ResourceAllignment:"Allignment",
+                        ResourceShow:"Show",
+                        ResourceName:"Name",
+                        ResourceJobTitle:"Job Title",
+                        ResourceDate:"Date",
+                    },
+                    ENTranslation: {
+                        ResourceConfiguration:'Configuration',
+                        ResourceSave:'Save',
+                        ResourceCancel:'Cancel',
+                        ResourceRemove:'Remove',
+                        ResourceThisPage:'This Page',
+                        ResourceAllPages:'All Pages',
+                        ResourceRange:'Range',
+                        ResourceSpecific:'Specific',
+                        ResourceApplyTo:'Apply To',
+                        ResourceLanguage:'Language',
+                        ResourcePagesNumber:"PagesNumber",
+                        ResourceFrom:"From",
+                        ResourceTo:"To",
+                        ResourceAllignment:"Allignment",
+                        ResourceShow:"Show",
+                        ResourceName:"Name",
+                        ResourceJobTitle:"Job Title",
+                        ResourceDate:"Date",
+                    }
+                };
+            },
+            mounted()
+		    {
+                this.ResourceShow=this.ARTranslation.ResourceShow;
+                this.ResourceName=this.ARTranslation.ResourceName;
+                this.ResourceJobTitle=this.ARTranslation.ResourceJobTitle;
+                this.ResourceDate=this.ARTranslation.ResourceDate;
+                this.ResourceConfiguration=this.ARTranslation.ResourceConfiguration;
+                this.ResourceSave=this.ARTranslation.ResourceSave;
+                this.ResourceCancel=this.ARTranslation.ResourceCancel;
+                this.ResourceRemove=this.ARTranslation.ResourceRemove;
+                this.ResourceThisPage=this.ARTranslation.ResourceThisPage;
+                this.ResourceAllPages=this.ARTranslation.ResourceAllPages;
+                this.ResourceRange=this.ARTranslation.ResourceRange;
+                this.ResourceSpecific=this.ARTranslation.ResourceSpecific;
+                this.ResourceApplyTo=this.ARTranslation.ResourceApplyTo;
+                this.ResourceLanguage=this.ARTranslation.ResourceLanguage;
+                this.ResourcePagesNumber=this.ARTranslation.ResourcePagesNumber;
+                this.ResourceFrom=this.ARTranslation.ResourceFrom;
+                this.ResourceTo=this.ARTranslation.ResourceTo;
+                this.ResourceAllignment=this.ARTranslation.ResourceAllignment;
+                
+                document.getElementById('main-app-div').style.display = 'block';
+
+                this.customApiPath = sessionStorage.getItem('customApiPath')
+                this.headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('jwt_token') }
+
+                this.documentId = this.getParameterByName('documentId')
+                this.attachmentId = this.getParameterByName('attachmentId')
+                this.signaturesCount = this.getParameterByName('signaturesCount') // read from query string
+                this.signedByList = [] // read from window.signedByList
+
+                this.pagesReady = true
+                var gctId = 0
+
+                this.getInitData(() => 
+                {
+                    this.signersTable = []
+                    for (i = 1; i <= this.signaturesCount; i++) 
+                    {
+                        var signerContact = this.signedByList.find(signer => signer.signatureOrder == i);
+                       
+                        if (signerContact != null && signerContact != undefined) 
+                        {
+                            this.signersTable.push({ 
+                                signerName: signerContact.signerName, 
+                                jobTitle: signerContact.profession, 
+                                GCT_ID: signerContact.userId
+                            });
+                        }
+                        else
+                        {
+                            this.signersTable.push({ 
+                                signerName: "Signature (" + i + ")", jobTitle: "",  GCT_ID: 0 
+                            });
+                        }
+                    }
+
+                    this.enableSelector(false);
+                    this.GoToSelectedPage(1);
+                });
+            },
+            methods:
+		    {
+                getParameterByName(name, url = window.location.href) 
+                {
+                    name = name.replace(/[\[\]]/g, '\\$&');
+                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                        results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                },
+                getInitData(successHandler) 
+                {
+                    axios.all([
+                        axios.get(this.customApiPath + 'ConfigureSignature/GetAttachmentNumberOfPages?documentId='+this.documentId+'&attachmentId=' + this.attachmentId, { headers: this.headers }),
+                        axios.get(this.customApiPath + 'ConfigureSignature/GetSignatureConfiguration?documentId='+this.documentId+'&attachmentId=' + this.attachmentId, { headers: this.headers }),
+                        axios.get(this.customApiPath + 'ConfigureSignature/GetWorkflowSignersNames?documentId='+this.documentId, { headers: this.headers })
+                    ])
+                    .then(axios.spread((response1, response2, response3) => 
+                    {
+                        debugger
+                        var pagesCount = response1.data;
+
+                        for (let i = 1; i <= pagesCount; i++) 
+                        {
+                            this.docPages.push(
+                                {"Src":"ConfigureSignature/GetPage?attachmentId="+this.attachmentId+"&documentId="+this.documentId+"&pageNumber=" + i,"PageNo":i,"SignInfo":[]});
+                        }
+
+                        for (let i = 0; i < response2.data.length; i++) 
+                        {
+                            var page = this.docPages.find(page => page.PageNo == response2.data[i].PageNo);
+                            if (page != null && page != undefined) 
+                            {
+                                page.SignInfo = response2.data[i].SignInfo;
+                            }
+                        }
+
+                        this.signedByList = response3.data;
+
+                        successHandler();
+                    }));
+        	    },
+                enableSelector(val) 
+                {
+                    var selectorOptions = {
+                        handles: true,
+                        instance: true,
+                        disable: false,
+                        enable: true,
+                        parent: '#imgContainer',
+                        onSelectEnd: this.OnSelectionChange,
+                        OnSelectionChange: this.OnSelectionChange
+                    };
+
+                    if (val) 
+                    {
+                        this.signaturesListShow = false
+                        this.configureSignatureShow = true
+
+                        this.pnlSignConfigShow = true
+
+                        selectorOptions.enable = true;
+                        selectorOptions.disable = false;
+                        if (this.imgSelector == null) 
+                        {
+                            this.imgSelector = $('#imgPage').imgAreaSelect(selectorOptions);
+                        }
+                        else 
+                        {
+                            this.imgSelector.cancelSelection();
+                            this.imgSelector.setOptions(selectorOptions);
+                        }
+
+                        this.isInConfigureMode = true;
+                    }
+                    else 
+                    {
+                        this.signaturesListShow = true
+                        this.configureSignatureShow = false
+
+                        this.pnlSignConfigShow = false
+
+                        if (this.imgSelector != null) 
+                        {
+                            this.imgSelector.cancelSelection();
+                            selectorOptions.enable = false;
+                            selectorOptions.disable = true;
+                            this.imgSelector.setOptions(selectorOptions);
+                        }
+
+                        this.isInConfigureMode = false;
+                    }
+                },
+                OnSelectionChange(img, selection) 
+                {
+                    this.UpdateSignatureInfoObject(selection);
+                },
+                UpdateSignatureInfoObject(selection) 
+                {
+                    var newSignInfo = this.CreateSignInfoObject(selection);
+                    var isUpdate = false;
+
+                    var newArray = [];
+                    var signInfoArray = this.docPages[this.selelectedPageNumber - 1].SignInfo;
+                    if (signInfoArray == undefined || signInfoArray == null) 
+                    {
+                        signInfoArray = [];
+                    }
+
+                    for (var i = 0; i < this.docPages[this.selelectedPageNumber - 1].SignInfo.length; i++) 
+                    {
+                        var element = this.docPages[this.selelectedPageNumber - 1].SignInfo[i];
+                        if (element.SignatureNo != this.currentSignatureNumber)
+                            newArray.push(element)
+                    }
+                    newArray.push(newSignInfo);
+
+                    this.docPages[this.selelectedPageNumber - 1].SignInfo = newArray
+                },
+                CreateSignInfoObject(selection) 
+                {
+                    if (selection == null && this.imgSelector != null) 
+                    {
+                        selection = this.imgSelector.getSelection();
+                    }
+
+                    return {
+                        SignatureNo: this.currentSignatureNumber,
+                        WidthScale: 1 / $('#imgContainer').width(),
+                        HeightScale: 1 / $('#imgContainer').height(),
+                        Width: selection.width,
+                        Height: selection.height,
+                        X: selection.x1,
+                        Y: $('#imgContainer').height() - selection.y1 - selection.height,
+                        IsArabic: this.signatureConfig.language == 'AR',
+                        ShowSigneeName: this.signatureConfig.showName,
+                        ShowSigneePosition: this.signatureConfig.showJobTitle,
+                        ShowSignDate: this.signatureConfig.showDate,
+                        ShowStamp: this.signatureConfig.showStamp,
+                        SignAlign: this.signatureConfig.alignment,
+                        GCTId: this.currentgctId
+                    }
+                },
+                onConfigureClick(item, signatureNo) 
+                {
+                    //window.alert(JSON.stringify(item),signatureNo);
+                    this.enableSignatureConfiguration(signatureNo, item.GCT_ID)
+                },
+                enableSignatureConfiguration(signatureNo, gctId) 
+                {
+                    var signerContact = this.signedByList.find(signer => signer.ContactOrder == signatureNo);
+                    
+                    var signatureKeyword = "Signature";
+                    var jobTitle = "";
+                    if (signerContact != undefined && signerContact != null) 
+                    {
+                        signatureKeyword = signerContact[0].ContactName;
+                        jobTitle = signerContact[0].ContactProfession;
+                    }
+
+                    this.signerEditName = signatureKeyword + " (" + signatureNo + ")"
+                    this.signerEditJobPosition = jobTitle
+                    this.currentSignatureNumber = signatureNo
+                    this.currentgctId = gctId
+
+                    var docPagesOrignal = JSON.stringify(this.docPages)
+                    this.enableSelector(true)
+                    this.ReloadPage(this.selelectedPageNumber)
+                    
+                    if (this.docPages[this.selelectedPageNumber - 1].SignInfo != null) 
+                    {
+                        var isFound = false;
+                        for (let i = 0; i < this.docPages[this.selelectedPageNumber - 1].SignInfo.length; i++) 
+                        {
+                            const signInfo = this.docPages[this.selelectedPageNumber - 1].SignInfo[i];
+                            if (signInfo.SignatureNo == signatureNo) 
+                            {
+                                this.signatureConfig.language = signInfo.IsArabic ? 'AR' : 'EN'
+                                this.signatureConfig.showName = signInfo.ShowSigneeName
+                                this.signatureConfig.showJobTitle = signInfo.ShowSigneePosition
+                                this.signatureConfig.showDate = signInfo.ShowSignDate
+                                this.signatureConfig.showStamp = signInfo.ShowStamp
+                                this.signatureConfig.alignment = signInfo.SignAlign
+
+                                var currentXScale = signInfo.WidthScale * $('#imgContainer').width();
+                                var currentYScale = signInfo.HeightScale * $('#imgContainer').height();
+                                var x1 = currentXScale * signInfo.X;
+                                var y1 = $('#imgContainer').height() - (currentYScale * (signInfo.Y + signInfo.Height));
+                                var x2 = currentXScale * (signInfo.X + signInfo.Width);
+                                var y2 = $('#imgContainer').height() - (currentYScale * signInfo.Y);
+                                this.imgSelector.setSelection(x1, y1, x2, y2, true);
+                                this.imgSelector.setOptions({ show: true });
+                                this.imgSelector.update();
+                                isFound = true;
+                               
+                                this.UpdateSignatureInfoObject(null);
+                            }   
+                        }
+
+                        if (!isFound) 
+                        {
+                            this.signatureConfig.language = 'EN'
+                            this.signatureConfig.showName = true
+                            this.signatureConfig.showJobTitle = true
+                            this.signatureConfig.showDate = true
+                            this.signatureConfig.showStamp = false
+                        }
+                    }
+                },
+                GoToSelectedPage(pageNumber)
+                {
+                    this.signatureConfigurationCancel(false);
+                    this.ReloadPage(pageNumber);
+                },
+                GoToPreviousPage()
+                {
+                    var currentPageNumber = parseInt(this.pageNumberField);
+                    if (currentPageNumber > 1)
+                    {
+                        this.GoToSelectedPage(currentPageNumber - 1);
+                    }
+                },
+                ChangePage()
+                {
+                    this.signatureConfigurationCancel(false);
+                    this.ReloadPage(this.pageNumberField);
+                },
+                GoToNextPage()
+                {
+                    var currentPageNumber = parseInt(this.pageNumberField);
+                    if (currentPageNumber < this.docPages.length)
+                    {
+                        this.GoToSelectedPage(currentPageNumber + 1);
+                    }
+                },
+                signatureConfigurationCancel(reloadPage)
+                {
+                    if (this.docPagesOrignal != null) 
+                    {
+                        this.docPages = JSON.parse(this.docPagesOrignal);
+                        this.docPagesOrignal = null;
+                    }
+                    this.currentSignatureNumber = 0;
+                    this.enableSelector(false);
+                    if (reloadPage)
+                        this.ReloadPage(this.selelectedPageNumber);
+                },
+                signatureConfigurationDone()
+                {
+                    this.UpdateSignatureInfoObject(null);
+
+                    this.docPagesOrignal = null;
+                    var getCurrentSignInfo = null;
+
+                    for (let i = 0; i < this.docPages[this.selelectedPageNumber - 1].SignInfo.length; i++) 
+                    {
+                        const signInfo = this.docPages[this.selelectedPageNumber - 1].SignInfo[i];
+                        if (signInfo.SignatureNo == this.currentSignatureNumber)
+                            getCurrentSignInfo = JSON.stringify(signInfo);
+                    }
+
+                    getCurrentSignInfo.GCTId = this.currentgctId;
+
+                    if (this.signatureConfig.applyTo == 'range') 
+                    {
+                        var from = parseInt(this.signatureConfig.from);
+                        var to = parseInt(this.signatureConfig.to);
+
+                        for (i = 1; i <= this.docPages.length; i++) 
+                        {
+                            if (i >= from && i <= to) 
+                            {
+                                var newArray = []
+                                for (let j = 0; j < this.docPages[i-1].SignInfo.length; j++) 
+                                {
+                                    const signInfo = this.docPages[i-1].SignInfo[j];
+                                    if (signInfo.SignatureNo != this.currentSignatureNumber)
+                                        newArray.push(signInfo);
+                                }
+                                newArray.push(JSON.parse(getCurrentSignInfo));
+                                this.docPages[i-1].SignInfo = newArray;
+                            }
+                        }
+                        
+                        // remove signInfo object from this.docPages if it is not in range
+                        if (this.selelectedPageNumber < from || this.selelectedPageNumber > to)
+                        {
+                            var newArray2 = []
+                            for (let j = 0; j < this.docPages[this.selelectedPageNumber - 1].SignInfo.length; j++) 
+                            {
+                                const signInfo = this.docPages[this.selelectedPageNumber - 1].SignInfo[j];
+                                if (signInfo.SignatureNo != this.currentSignatureNumber)
+                                    newArray2.push(signInfo);
+                            }
+                            this.docPages[this.selelectedPageNumber - 1].SignInfo = newArray2;
+                        }                        
+                    }
+
+                    if (this.signatureConfig.applyTo == 'specific') 
+                    {
+                        var specificPages = this.signatureConfig.specific.split(',');
+
+                        for (i = 1; i <= this.docPages.length; i++) 
+                        {
+                            if (specificPages.includes(i.toString())) 
+                            {
+                                var newArray = []
+                                for (let j = 0; j < this.docPages[i-1].SignInfo.length; j++) 
+                                {
+                                    const signInfo = this.docPages[i-1].SignInfo[j];
+                                    if (signInfo.SignatureNo != this.currentSignatureNumber)
+                                        newArray.push(signInfo);
+                                }
+                                newArray.push(JSON.parse(getCurrentSignInfo));
+                                this.docPages[i-1].SignInfo = newArray;
+                            }
+                        }
+
+                        // remove signInfo object from this.docPages if it is not in specific
+                        if (!specificPages.includes(this.selelectedPageNumber.toString()))
+                        {
+                            var newArray2 = []
+                            for (let j = 0; j < this.docPages[this.selelectedPageNumber - 1].SignInfo.length; j++) 
+                            {
+                                const signInfo = this.docPages[this.selelectedPageNumber - 1].SignInfo[j];
+                                if (signInfo.SignatureNo != this.currentSignatureNumber)
+                                    newArray2.push(signInfo);
+                            }
+                            this.docPages[this.selelectedPageNumber - 1].SignInfo = newArray2;
+                        }
+                    }                    
+
+                    if (this.signatureConfig.applyTo == 'all') 
+                    {
+                        for (i = 1; i <= this.docPages.length; i++) 
+                        {
+                            var newArray = []
+                            for (let j = 0; j < this.docPages[i-1].SignInfo.length; j++) 
+                            {
+                                const signInfo = this.docPages[i-1].SignInfo[j];
+                                if (signInfo.SignatureNo != this.currentSignatureNumber)
+                                    newArray.push(signInfo);
+                            }
+                            newArray.push(JSON.parse(getCurrentSignInfo));
+                            this.docPages[i-1].SignInfo = newArray;
+                        }
+                    }
+
+                    this.currentSignatureNumber = 0;
+                    this.enableSelector(false);
+                    this.SaveConfigurations();
+                },
+                ReloadPage(pageNumber) 
+                {
+                    if (pageNumber != 0 && pageNumber <= this.docPages.length) 
+                    {
+                        this.isPageIsLoaded = false;
+                    }
+
+                    if (this.docPages.length >= pageNumber && pageNumber > 0) 
+                    {
+                        this.pageNumberField = pageNumber
+                        this.selelectedPageNumber = pageNumber
+                        var signatureNo = 0
+                        if (this.isInConfigureMode)
+                            signatureNo = this.currentSignatureNumber
+                        
+                        var url = this.customApiPath + this.docPages[this.selelectedPageNumber - 1].Src + "&ConfigSignatureNo=" + signatureNo + "&timeStamp=" + new Date().getTime()
+                        axios.get(url, { headers: this.headers })
+                            .then(response =>
+                            {
+                                $('#imgPage').attr('src', "data:image/jpeg;base64," + response.data);
+                            })
+                            .catch(err => console.warn(err))
+                    }
+                },
+                SaveConfigurations() 
+                {
+                    var finalArray = []
+                    this.docPages.forEach(function (docPage) 
+                    {
+                        if (docPage.SignInfo != undefined && docPage.SignInfo != null && docPage.SignInfo.length > 0)
+                        {
+                            finalArray.push({
+                                PageNo: docPage.PageNo,
+                                SignInfo: docPage.SignInfo
+                            })
+                        }
+                    });
+                    console.log(finalArray)
+
+                    var requestObj = {
+                        documentId: this.documentId,
+                        attachmentId: this.attachmentId,
+                        signatureConfiguration: JSON.stringify(finalArray)
+                    }
+
+                    axios.post(this.customApiPath + 'ConfigureSignature/SaveSignatureConfiguration', requestObj, { headers: this.headers })
+                        .then(response => { parent.window.showAlert('The configurations were saved', 'success'); this.ReloadPage(this.selelectedPageNumber); } )
+                        .catch(err => console.log(err))
+                },
+                signatureConfigurationRemove()
+                {
+                    this.docPagesOrignal = null;
+
+                    var newArray = [];
+                    for (let i = 0; i < this.docPages[this.selelectedPageNumber - 1].SignInfo.length; i++) 
+                    {
+                        const signInfo = this.docPages[this.selelectedPageNumber - 1].SignInfo[i];
+                        if (signInfo.SignatureNo != this.currentSignatureNumber)
+                            newArray.push(signInfo);
+                    }
+                    this.docPages[this.selelectedPageNumber - 1].SignInfo = newArray;
+
+                    if (this.signatureConfig.applyTo == 'range')
+                    {
+                        var from = parseInt(this.signatureConfig.from);
+                        var to = parseInt(this.signatureConfig.to);
+
+                        for (i = 1; i <= this.docPages.length; i++) 
+                        {
+                            if (i >= from && i <= to) 
+                            {
+                                var newArray2 = []
+                                for (let j = 0; j < this.docPages[i-1].SignInfo.length; j++) 
+                                {
+                                    const signInfo = this.docPages[i-1].SignInfo[j];
+                                    if (signInfo.SignatureNo != this.currentSignatureNumber)
+                                        newArray2.push(signInfo);
+                                }
+                                this.docPages[i-1].SignInfo = newArray2;
+                            }
+                        }
+                    }
+
+                    if (this.signatureConfig.applyTo == 'specific') 
+                    {
+                        var specificPages = this.signatureConfig.specific.split(',');
+
+                        for (i = 1; i <= this.docPages.length; i++) 
+                        {
+                            if (specificPages.includes(i.toString())) 
+                            {
+                                var newArray = []
+                                for (let j = 0; j < this.docPages[i-1].SignInfo.length; j++) 
+                                {
+                                    const signInfo = this.docPages[i-1].SignInfo[j];
+                                    if (signInfo.SignatureNo != this.currentSignatureNumber)
+                                        newArray.push(signInfo);
+                                }
+                                newArray.push(JSON.parse(getCurrentSignInfo));
+                                this.docPages[i-1].SignInfo = newArray;
+                            }
+                        }
+
+                        // remove signInfo object from this.docPages if it is not in specific
+                        if (!specificPages.includes(this.selelectedPageNumber.toString()))
+                        {
+                            var newArray2 = []
+                            for (let j = 0; j < this.docPages[this.selelectedPageNumber - 1].SignInfo.length; j++) 
+                            {
+                                const signInfo = this.docPages[this.selelectedPageNumber - 1].SignInfo[j];
+                                if (signInfo.SignatureNo != this.currentSignatureNumber)
+                                    newArray2.push(signInfo);
+                            }
+                            this.docPages[this.selelectedPageNumber - 1].SignInfo = newArray2;
+                        }
+                    }
+
+                    if (this.signatureConfig.applyTo == 'all')
+                    {
+                        for (i = 1; i <= this.docPages.length; i++) 
+                        {
+                            var newArray3 = []
+                            for (let j = 0; j < this.docPages[i-1].SignInfo.length; j++) 
+                            {
+                                const signInfo = this.docPages[i-1].SignInfo[j];
+                                if (signInfo.SignatureNo != this.currentSignatureNumber)
+                                    newArray3.push(signInfo);
+                            }
+                            this.docPages[i-1].SignInfo = newArray3;
+                        }
+                    }
+
+                    this.currentSignatureNumber = 0;
+                    this.enableSelector(false);
+                    this.SaveConfigurations();
+                }
+            }
+        });
+    </script>
+	<link rel="stylesheet" href="../../assets/css/main.css">
+    <style>
+        .v-application--wrap { background: white !important; }
+    </style>
+</body>
+</html>

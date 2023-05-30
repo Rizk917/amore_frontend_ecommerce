@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/navBar/Navbar";
 import ContactUs from "./pages/ContactUs";
 import Login from "./components/login/Login";
-import AboutUs from "./components/AboutUs/AboutUsComponent";
+import AboutUs from "./pages/AboutUs";
 import Dashboard from "./admin/Dashboard/Dashboard";
 import CategoriesAdmin from "./admin/Categories/categories";
 import ProductsAdmin from "./admin/Products/product";
