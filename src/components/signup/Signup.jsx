@@ -14,7 +14,7 @@ function Signup({ hello, handleButtonClick}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://127.0.0.1:5000/user/", {
+      const response = await axios.post("https://amore-backend.onrender.com/user/", {
         name: Name,
         email: email,
         password: password,

@@ -14,7 +14,7 @@ export function CartProvider({ children }) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/cart/${UserId}`);
+      const response = await fetch(`https://amore-backend.onrender.com/cart/${UserId}`);
       const dataFetched = await response.json();
       setData(dataFetched);
     } catch (error) {

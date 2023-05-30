@@ -29,7 +29,7 @@ useEffect(() => {
   };
   const getUserData =()=>{
     axios
-      .get("http://127.0.0.1:5000/user")
+      .get("https://amore-backend.onrender.com/user")
       .then((response) => {
         setUserslist(response.data.data);
       })
@@ -38,7 +38,7 @@ useEffect(() => {
       });
   }
   const handleDeleteUser = async (id) => {
-    const url = `http://127.0.0.1:5000/user/${id}`;
+    const url = `https://amore-backend.onrender.com/user/${id}`;
     try {
       await axios.delete(url);
   getUserData();

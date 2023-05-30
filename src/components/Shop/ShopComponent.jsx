@@ -20,7 +20,7 @@ import CardComp from "../card/Cardcomp";
     //get all categories
     useEffect(() => {
       axios
-        .get("http://127.0.0.1:5000/categories")
+        .get("https://amore-backend.onrender.com/categories")
         .then((response) => {
           setCategories(response.data.data);
 
@@ -35,7 +35,7 @@ import CardComp from "../card/Cardcomp";
       if (id === "all") {
 
         try {
-          const url = "http://127.0.0.1:5000/products/display";
+          const url = "https://amore-backend.onrender.com/products/display";
           await axios.get(url).then((response) => {
             setProducts(response.data.products);
           });
@@ -43,7 +43,7 @@ import CardComp from "../card/Cardcomp";
           console.log(error);
         }
       } else {
-        const url = `http://127.0.0.1:5000/products/display/${id}`;
+        const url = `https://amore-backend.onrender.com/products/display/${id}`;
         try {
           await axios.get(url).then((response) => {
             // console.log(response)

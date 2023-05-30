@@ -19,7 +19,7 @@ function ContactUsAdmin() {
   };
   const getUserData =()=>{
     axios
-      .get("http://127.0.0.1:5000/contactus")
+      .get("https://amore-backend.onrender.com/contactus")
       .then((response) => {
         setUserslist(response.data);
       })
@@ -31,7 +31,7 @@ function ContactUsAdmin() {
       });
   }
   const handleDeleteUser = async (id) => {
-    const url = `http://127.0.0.1:5000/contactus/${id}`;
+    const url = `https://amore-backend.onrender.com/contactus/${id}`;
     try {
       await axios.delete(url);
   getUserData();

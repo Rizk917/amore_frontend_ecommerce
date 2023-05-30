@@ -20,7 +20,7 @@ function HomeComponent() {
     getPopular();
     getBanners();
     // axios
-    //   .get("http://127.0.0.1:5000/popular")
+    //   .get("https://amore-backend.onrender.com/popular")
     //   .then((response) => {
     //     setPopular(response.data);
 
@@ -32,7 +32,7 @@ function HomeComponent() {
 
 
   const getPopular =()=>{
-    axios.get('http://127.0.0.1:5000/popular')
+    axios.get('https://amore-backend.onrender.com/popular')
     .then((response)=>{
       setPopular(response.data)
     })
@@ -42,7 +42,7 @@ function HomeComponent() {
   }
 
   const getBanners =()=>{
-    axios.get('http://127.0.0.1:5000/imageCarousel')
+    axios.get('https://amore-backend.onrender.com/imageCarousel')
     .then((response)=>{
       setSlides(response.data.data)
     })

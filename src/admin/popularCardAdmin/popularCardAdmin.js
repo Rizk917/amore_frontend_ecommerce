@@ -14,7 +14,7 @@ function PopularCardAdmin() {
   
 const showPopular=() =>{
   axios
-      .get("http://127.0.0.1:5000/popular")
+      .get("https://amore-backend.onrender.com/popular")
       .then((response) => {
         // console.log(response.data)
 
@@ -32,7 +32,7 @@ const showPopular=() =>{
   // get categories using axios
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/products")
+      .get("https://amore-backend.onrender.com/products")
       .then((response) => {
         setCategories(response.data.data);
       })
@@ -61,7 +61,7 @@ const showPopular=() =>{
   
     try {
       const { productId } = addProduct;
-      const response = await axios.post("http://127.0.0.1:5000/popular", { productId });
+      const response = await axios.post("https://amore-backend.onrender.com/popular", { productId });
       const newPopularProduct = response.data;
   
       setProducts([...products, newPopularProduct]);
@@ -78,7 +78,7 @@ const showPopular=() =>{
   // Function for deleting  a product
 
   const handleDeleteProduct = async (id) => {
-    const url = `http://127.0.0.1:5000/popular/${id}`;
+    const url = `https://amore-backend.onrender.com/popular/${id}`;
     try {
       const confirmDelete = window.confirm("Are you sure you want to delete this product?");
       if (confirmDelete) {

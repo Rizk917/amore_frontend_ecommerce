@@ -21,7 +21,7 @@ export default function Order() {
     secureLocalStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
   const handleDeleteACart = () => {
-    fetch(`http://127.0.0.1:5000/cart/${UserId}`, {
+    fetch(`https://amore-backend.onrender.com/cart/${UserId}`, {
       method: 'DELETE',
     })
       .then((response) => {
@@ -61,7 +61,7 @@ export default function Order() {
         shippingAddress,
       }),
     };
-    fetch('http://127.0.0.1:5000/order', requestOptions)
+    fetch('https://amore-backend.onrender.com/order', requestOptions)
       .then((response) => {
         if (response.status === 200) {
           console.log('Order confirmed!');

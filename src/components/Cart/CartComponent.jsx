@@ -36,7 +36,7 @@ export default function CartComponent() {
   };
   const handleCreatingCart = async (productId, productName, productPrice) => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/cart/addtocart', {
+      const response = await fetch('https://amore-backend.onrender.com/cart/addtocart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

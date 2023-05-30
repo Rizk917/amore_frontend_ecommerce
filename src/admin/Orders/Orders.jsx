@@ -14,7 +14,7 @@ function Orders() {
 
   const getOrderData = () => {
     axios
-      .get("http://127.0.0.1:5000/order")
+      .get("https://amore-backend.onrender.com/order")
       .then((response) => {
         // console.log(response.data);
         setOrderslist(response.data);
@@ -25,7 +25,7 @@ function Orders() {
   };
   const handleUpdate = (orderId, status) => {
     axios
-      .patch(`http://127.0.0.1:5000/order/${orderId}`, { status })
+      .patch(`https://amore-backend.onrender.com/order/${orderId}`, { status })
       .then((response) => {
         toast.success(`Order status updated to ${status}`);
         getOrderData();
