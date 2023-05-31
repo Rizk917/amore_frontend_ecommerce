@@ -50,7 +50,7 @@ const About = () => {
             </p> */}
           </div>
           <div className="image-container">
-            <img src={logo} alt="logo" className="aboutus-image" />
+            <img src='https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/04/makeup_composition_overhead-1296x728-header.jpg' alt="logo" className="aboutus-image" />
           </div>
         </div>
       </div>

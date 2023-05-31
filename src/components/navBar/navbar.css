@@ -90,6 +90,7 @@
 
 .logo img {
   margin-left: 20%;
+  object-fit: contain;
   width: 190px;
   cursor: pointer;
   height: 90px;
@@ -114,6 +115,7 @@
   text-decoration: none;
   list-style-type: none;
   list-style: none;
+  color: #000000;
   /* color: rgb(255, 255, 255); */
 }
 .sticky-header .nav-links li a,

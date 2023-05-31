@@ -190,6 +190,7 @@
 }
 .logo-Footer{
 	height: 150px;
+	object-fit: contain;
 	width: 250px;
   }
 

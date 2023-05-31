@@ -36,8 +36,8 @@ const MainLayout = () => {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="dashboard-logo">
           <h2 className="text-white fs-5 text-center py-3 mb-0">
-            <span className="sm-logo">BC</span>
-            <span className="lg-logo">Ba Co</span>
+            <span className="sm-logo">Amore</span>
+            <span className="lg-logo">Amore LB</span>
             </h2>
         </div>
         <Menu
