@@ -66,8 +66,8 @@ const ContactUsComponent = (props) => {
   return (
     <>
     <div className="contact-Us">
-      <h1 className="yellowish_text pCenter"><span className="p_span">Contact Us</span></h1>
     <div className="container-home">
+      <h1 className="yellowish_text pCenter"><span className="p_span">Contact Us</span></h1>
     <div class="cntctus">
       <div class="content">
         <div class="left-side">

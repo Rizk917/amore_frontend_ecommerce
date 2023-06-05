@@ -113,7 +113,7 @@ function Navbar({ onButtonClick }) {
             Contact us
           </Link>
           </li>
-          {loggedIn?<li className="li hidden">
+       <li className="li hidden">
           <Link
             className={`user${active ? "-b" : ""}${
               location.pathname === "/cart" ? " lol" : ""
@@ -122,7 +122,7 @@ function Navbar({ onButtonClick }) {
           >
          Cart
           </Link>
-        </li>:null}
+        </li>
        {loggedIn?<li className="li hidden">
           <p
           onClick={logOut}

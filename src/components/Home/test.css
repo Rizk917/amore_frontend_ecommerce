@@ -1,13 +1,4 @@
-.crsl-wrap {
-  width: 600px;
-  display: flex;
-  overflow: auto;
-  overflow-x: scroll;
-  margin: 0 auto;
-  scroll-snap-type: x mandatory;
-  gap: 10px;
-  position: relative;
-}
+
 
 .crsl-wrap::-webkit-scrollbar {
   display: none;
@@ -21,13 +12,25 @@
   border-radius: 20px;
   height: 20vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
+  opacity: 0.5;
+  transform: scale(0.8);
+  transition: all 0.3s ease-in-out;
 }
 
 .crsl-card h1 {
-  flex-grow: 1;
+  font-size: 1.5em;
+  color: gray;
+}
+.crsl-card h2 {
+  font-size: 1.1em;
+}
+.crsl-card h1,
+.crsl-card h2 {
+  font-family: Arial, Helvetica, sans-serif;
 }
 .size-auto {
   width: auto;
@@ -40,16 +43,21 @@
   gap: 20px;
 }
 
-@media all and (max-width:650px){
-    .mainer {
-        flex-direction: column;
-        align-items: center;
+@media all and (max-width: 680px) {
+  .mainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .size-auto {
+    width: 100px;
+  }
 
-    }
-.size-auto {
-  width: 100px;
+  .crsl-wrap {
+    max-width: 330px;
+  }
 }
-.crsl-wrap{
-    max-width: 400px;
-}
+
+.crsl-card.highlighted {
+  opacity: 1;
+  transform: scale(1);
 }

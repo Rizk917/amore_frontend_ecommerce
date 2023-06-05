@@ -115,7 +115,10 @@ function HomeComponent() {
               <span className="p_span">Testimonials</span>
             </Link>
           </p>
+          <div className="container-home">
 <Testimonials/>
+
+          </div>
 
 
         </div>

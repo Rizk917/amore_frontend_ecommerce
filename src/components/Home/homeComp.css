@@ -101,6 +101,7 @@ img {
    background:#fff; 
    padding:0 10px;
    color: #f6c270;
+   font-size: 0.8em;
 }
 
 .banner {
@@ -338,12 +339,11 @@ img {
   }
 }
 @media all and (max-width:650px){
-  .slick-slider img {
+  /* .slick-slider img {
     object-fit: contain;
     height: auto;
-}
+} */
 .cntr-cat{
-
   display: flex;
   flex-direction: row;
   height: 25vh;

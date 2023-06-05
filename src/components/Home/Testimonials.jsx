@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./test.css";
 import swipersvg from '../../images/swipe.svg'
+
 function Testimonials() {
   const testimonials = [
     {
@@ -23,18 +24,31 @@ function Testimonials() {
     },
   ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, [testimonials]);
+
   return (
     <div className="mainer">
       <div className="home-content crsl-wrap">
         {testimonials.map((test, index) => (
-          <div className="crsl-card">
+          <div
+            key={test.id}
+            className={`crsl-card ${index === currentIndex ? "highlighted" : ""}`}
+          >
             <h1>{test.name}</h1>
             <h2>{test.message}</h2>
           </div>
         ))}
         
       </div>
-      <img  src={swipersvg} className="size-auto" alt="swipe" />
     </div>
   );
 }
