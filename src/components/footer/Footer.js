@@ -79,10 +79,10 @@ const Footer = () => {
         </p>
 
         <div className="footer-icons">
-        <a href="#">
+        <a href="facebook.com">
             <i className="fa fa-facebook"></i>
           </a>
-          <a href="#">
+          <a href="https://www.instagram.com/amore.productslb/">
             <i className="fa fa-instagram"></i>
           </a>
           {/* <a href="#">
