@@ -63,6 +63,7 @@ function ProductsAdmin() {
     productPrice: "",
     productQuantity: "",
     categoryId: "",
+    Sale: "",
   });
 
   const handleImageChange = async (event) => {
@@ -91,6 +92,7 @@ function ProductsAdmin() {
     formData.append("productDescription", addProduct.productDescription);
     formData.append("productPrice", addProduct.productPrice);
     formData.append("productQuantity", addProduct.productQuantity);
+    formData.append("Sale", addProduct.Sale);
     formData.append("categoryId", String(addProduct.categoryId));
 
     const config = {
@@ -151,6 +153,7 @@ function ProductsAdmin() {
     productImage: "",
     productPrice: "",
     productQuantity: "",
+    Sale: "",
     categoryId: "",
   });
 
@@ -171,6 +174,7 @@ function ProductsAdmin() {
     formData.append("productPrice", updateProduct.productPrice);
     formData.append("productQuantity", updateProduct.productQuantity);
     formData.append("categoryId", String(updateProduct.categoryId));
+    formData.append("Sale", String(updateProduct.Sale));
 
     const config = {
       headers: { "content-type": "multipart/form-data" },
@@ -315,6 +319,14 @@ function ProductsAdmin() {
                   onChange={(e) => handleUpdateChange(e)}
                   value={updateProduct.productPrice}
                 />
+                        <label className="product_label">Sale %</label>
+                <input
+                  type="text"
+                  className="product"
+                  name="productPrice"
+                  onChange={(e) => handleUpdateChange(e)}
+                  value={updateProduct.Sale}
+                />
                 <label className="product_label">Product Quantity</label>
                 <input
                   type="text"
@@ -376,6 +388,14 @@ function ProductsAdmin() {
                   type="text"
                   className="product"
                   name="productPrice"
+                  autoComplete="off"
+                  onChange={handleChange}
+                />
+                    <label className="product_label">Sale %</label>
+                <input
+                  type="text"
+                  className="product"
+                  name="Sale"
                   autoComplete="off"
                   onChange={handleChange}
                 />

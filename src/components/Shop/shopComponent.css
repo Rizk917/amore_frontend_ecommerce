@@ -11,9 +11,8 @@
 .sideBar_products {
   display: flex;
   flex-direction: row;
-  gap: 2dvh;
+  gap: 8dvh;
 }
-
 .burger_image img {
   width: 40px;
   height: 40px;
